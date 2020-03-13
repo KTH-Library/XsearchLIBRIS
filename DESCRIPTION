@@ -1,0 +1,35 @@
+Package: XsearchLIBRIS
+Title: Data from LIBRIS - Swedish National Library Systems
+    Xsearch API
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Markus",
+           family = "Skyttner",
+           role = c("cre", "aut"),
+           email = "markussk@kth.se")
+Description: Xsearch is a lightweight API provided by LIBRIS -
+    the Swedish National Library Systems. This R package interfaces with
+    the API, making data available to use from R.
+License: MIT + file LICENSE
+URL: https://github.com/KTH-Library/XsearchLIBRIS
+BugReports: https://github.com/KTH-Library/XsearchLIBRIS/issues
+Imports: 
+    attempt,
+    progress,
+    curl,
+    httr,
+    jsonlite,
+    purrr,
+    dplyr,
+    tibble,
+    rlang,
+    htmltools
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.0.2
+Roxygen: list(markdown = TRUE)

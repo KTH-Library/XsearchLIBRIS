@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# XsearchLIBRIS
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+The goal of XsearchLIBRIS is to provide access to search results from LIBRIS Xsearch API directly in R.
+
+LIBRIS is an online search service of the National Library of Sweden. Search national, academic, and several public libraries of Sweden for books, periodicals, articles, maps, posters, printed music, electronic resources, and more.
+
+## Installation
+
+You can install the latest version of XsearchLIBRIS from GitHub with:
+
+``` r
+#install.packages("devtools")
+install_github("KTH-Library/XsearchLIBRIS", dependencies = TRUE)
+```
+
+## Example
+
+The database used can be specified - the default is to use LIBRIS but "swepub" is also available.
+
+This is a basic example which shows you how make a search:
+
+```{r example}
+library(XsearchLIBRIS)
+suppressPackageStartupMessages(library(dplyr))
+library(knitr)
+
+# search and display first two hits for "film noir"
+kable(xsearch(query = "WAMK:\"film noir\"")$content %>% slice(1:2))
+ 
+# search for publications by Vitruvius in Swedish
+"PERS:(vitruvius) SPR:swe" %>% 
+  xsearch() %>% 
+  .$content %>%
+  kable()
+
+# search SwePub for publications about timber framing in Swedish
+xsearch(query = "stolpverk SPR:swe", database = "swepub") %>%
+  .$content %>% 
+  mutate(summary = paste(
+    # generate summary snippet in markdown format
+    sprintf("[%s](%s)", identifier, sprintf("%s (%s:%s)", title, type, relation)),
+    sprintf("\n%s...", substr(description, 1, 250)))
+  ) %>%
+  select(`Search hit summaries` = summary) %>%
+  kable()
+
+```
