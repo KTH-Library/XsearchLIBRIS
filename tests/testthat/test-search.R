@@ -1,5 +1,5 @@
 test_that("search for film noir returns more than five hits", {
-  t1 <- xsearch(query = "WAMK:\"film noir\"")$content
+  t1 <- xsearch(query = "ÄMNE:\"film noir\"")$content
   expect_gt(nrow(t1), 5)
 })
 
